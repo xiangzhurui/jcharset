@@ -16,7 +16,8 @@
  * The Initial Developer of the Original Code is
  * Netscape Communications Corporation.
  * Portions created by the Initial Developer are Copyright (C) 1998
- * the Initial Developer. All Rights Reserved. *
+ * the Initial Developer. All Rights Reserved.
+ *
  * Alternatively, the contents of this file may be used under the terms of
  * either of the GNU General Public License Version 2 or later (the "GPL"),
  * or the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
@@ -31,14 +32,14 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-package org.mozilla.intl.chardet ;
-
-import java.lang.* ;
+package org.mozilla.intl.chardet;
 
 public interface nsICharsetDetector {
 
-	public void Init(nsICharsetDetectionObserver observer) ;
-	public boolean DoIt(byte[] aBuf, int aLen, boolean oDontFeedMe) ;
-	public void Done() ;
+    void Init(nsICharsetDetectionObserver observer);
+
+    boolean DoIt(byte[] aBuf, int aLen, boolean oDontFeedMe);
+
+    void Done();
 }
 

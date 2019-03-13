@@ -16,7 +16,8 @@
  * The Initial Developer of the Original Code is
  * Netscape Communications Corporation.
  * Portions created by the Initial Developer are Copyright (C) 1998
- * the Initial Developer. All Rights Reserved. *
+ * the Initial Developer. All Rights Reserved.
+ *
  * Alternatively, the contents of this file may be used under the terms of
  * either of the GNU General Public License Version 2 or later (the "GPL"),
  * or the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
@@ -31,56 +32,61 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-package org.mozilla.intl.chardet ;
+package org.mozilla.intl.chardet;
 
-import java.lang.* ;
+import java.lang.String;
 
-public class nsDetector extends nsPSMDetector 
-			implements nsICharsetDetector {
+public class nsDetector extends nsPSMDetector implements nsICharsetDetector {
 
-	nsICharsetDetectionObserver mObserver = null ;
+    nsICharsetDetectionObserver mObserver = null;
 
-	public nsDetector() {
-		super() ;
-	}
+    public nsDetector() {
+        super();
+    }
 
-	public nsDetector(int langFlag) {
-		super(langFlag) ;
-	}
+    public nsDetector(int langFlag) {
+        super(langFlag);
+    }
 
-	public void Init(nsICharsetDetectionObserver aObserver) {
+    @Override
+    public void Init(nsICharsetDetectionObserver aObserver) {
 
-	  	mObserver = aObserver ;
-		return ;
+        mObserver = aObserver;
+        return;
 
-	}
+    }
 
-	public boolean DoIt(byte[] aBuf, int aLen, boolean oDontFeedMe) {
+    @Override
+    public boolean DoIt(byte[] aBuf, int aLen, boolean oDontFeedMe) {
 
-		if (aBuf == null || oDontFeedMe )
-		    return false ;
+        if (aBuf == null || oDontFeedMe) {
+            return false;
+        }
 
-		this.HandleData(aBuf, aLen) ;	
-		return mDone ;
-	}
+        this.HandleData(aBuf, aLen);
+        return mDone;
+    }
 
-	public void Done() {
-		this.DataEnd() ;
-		return ;
-	}
+    @Override
+    public void Done() {
+        this.DataEnd();
+        return;
+    }
 
-	public void Report(String charset) {
-		if (mObserver != null)
-		    mObserver.Notify(charset)  ;
-	}
+    @Override
+    public void Report(String charset) {
+        if (mObserver != null) {
+            mObserver.Notify(charset);
+        }
+    }
 
-	public boolean isAscii(byte[] aBuf, int aLen) {
+    public boolean isAscii(byte[] aBuf, int aLen) {
 
-                for(int i=0; i<aLen; i++) {
-                   if ((0x0080 & aBuf[i]) != 0) {
-                      return false ;
-                   }
-                }
-		return true ;
-	}
+        for (int i = 0; i < aLen; i++) {
+            if ((0x0080 & aBuf[i]) != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
