@@ -34,10 +34,8 @@
 
 package org.mozilla.intl.chardet;
 
-import java.lang.String;
-
 public interface nsICharsetDetectionObserver {
 
-    void Notify(String charset);
+  void Notify(String charset);
 }
 

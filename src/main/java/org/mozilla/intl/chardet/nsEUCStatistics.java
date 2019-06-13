@@ -16,7 +16,8 @@
  * The Initial Developer of the Original Code is
  * Netscape Communications Corporation.
  * Portions created by the Initial Developer are Copyright (C) 1998
- * the Initial Developer. All Rights Reserved. *
+ * the Initial Developer. All Rights Reserved.
+ *
  * Alternatively, the contents of this file may be used under the terms of
  * either of the GNU General Public License Version 2 or later (the "GPL"),
  * or the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
@@ -31,22 +32,27 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-package org.mozilla.intl.chardet ;
-
-import java.lang.*;
+package org.mozilla.intl.chardet;
 
 public abstract class nsEUCStatistics {
 
-     public abstract float[] mFirstByteFreq() ;
-     public abstract float   mFirstByteStdDev();
-     public abstract float   mFirstByteMean();
-     public abstract float   mFirstByteWeight();
-     public abstract float[] mSecondByteFreq();
-     public abstract float   mSecondByteStdDev();
-     public abstract float   mSecondByteMean();
-     public abstract float   mSecondByteWeight();
+  public nsEUCStatistics() {
+  }
 
-     public nsEUCStatistics() {
-     }
+  public abstract float[] mFirstByteFreq();
+
+  public abstract float mFirstByteStdDev();
+
+  public abstract float mFirstByteMean();
+
+  public abstract float mFirstByteWeight();
+
+  public abstract float[] mSecondByteFreq();
+
+  public abstract float mSecondByteStdDev();
+
+  public abstract float mSecondByteMean();
+
+  public abstract float mSecondByteWeight();
 
 }

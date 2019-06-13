@@ -16,7 +16,8 @@
  * The Initial Developer of the Original Code is
  * Netscape Communications Corporation.
  * Portions created by the Initial Developer are Copyright (C) 1998
- * the Initial Developer. All Rights Reserved. *
+ * the Initial Developer. All Rights Reserved.
+ *
  * Alternatively, the contents of this file may be used under the terms of
  * either of the GNU General Public License Version 2 or later (the "GPL"),
  * or the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
@@ -31,45 +32,46 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-package org.mozilla.intl.chardet ;
-
-import java.lang.*;
+package org.mozilla.intl.chardet;
 
 public abstract class nsVerifier {
 
-     static final byte eStart = (byte)0;
-     static final byte eError = (byte)1;
-     static final byte eItsMe = (byte)2;
-     static final int eidxSft4bits = 3;
-     static final int eSftMsk4bits = 7;
-     static final int eBitSft4bits = 2;
-     static final int eUnitMsk4bits = 0x0000000F;
+  static final byte eStart = (byte) 0;
+  static final byte eError = (byte) 1;
+  static final byte eItsMe = (byte) 2;
+  static final int eidxSft4bits = 3;
+  static final int eSftMsk4bits = 7;
+  static final int eBitSft4bits = 2;
+  static final int eUnitMsk4bits = 0x0000000F;
 
-     nsVerifier() {
-     }
+  nsVerifier() {
+  }
 
-     public abstract String charset() ;
-     public abstract int stFactor()   ;
-     public abstract int[] cclass()   ;
-     public abstract int[] states()   ;
+  public static byte getNextState(nsVerifier v, byte b, byte s) {
 
-     public abstract boolean isUCS2() ;
+    return (byte) (0xFF &
+        (((v.states()[((
+            (s * v.stFactor() + (((v.cclass()[((b & 0xFF) >> eidxSft4bits)])
+                >> ((b & eSftMsk4bits) << eBitSft4bits))
+                & eUnitMsk4bits)) & 0xFF)
+            >> eidxSft4bits)]) >> (((
+            (s * v.stFactor() + (((v.cclass()[((b & 0xFF) >> eidxSft4bits)])
+                >> ((b & eSftMsk4bits) << eBitSft4bits))
+                & eUnitMsk4bits)) & 0xFF)
+            & eSftMsk4bits) << eBitSft4bits)) & eUnitMsk4bits)
+    );
 
-     public static byte getNextState(nsVerifier v, byte b, byte s) {
+  }
 
-         return (byte) ( 0xFF & 
-	     (((v.states()[((
-		   (s*v.stFactor()+(((v.cclass()[((b&0xFF)>>v.eidxSft4bits)]) 
-		   >> ((b & v.eSftMsk4bits) << v.eBitSft4bits)) 
-		   & v.eUnitMsk4bits ))&0xFF)
-		>> v.eidxSft4bits) ]) >> (((
-		   (s*v.stFactor()+(((v.cclass()[((b&0xFF)>>v.eidxSft4bits)]) 
-		   >> ((b & v.eSftMsk4bits) << v.eBitSft4bits)) 
-		   & v.eUnitMsk4bits ))&0xFF) 
-		& v.eSftMsk4bits) << v.eBitSft4bits)) & v.eUnitMsk4bits )
-	 ) ;
+  public abstract String charset();
 
-     }
+  public abstract int stFactor();
+
+  public abstract int[] cclass();
+
+  public abstract int[] states();
+
+  public abstract boolean isUCS2();
 
 
 }

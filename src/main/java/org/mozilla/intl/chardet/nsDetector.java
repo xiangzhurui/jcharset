@@ -34,59 +34,55 @@
 
 package org.mozilla.intl.chardet;
 
-import java.lang.String;
-
 public class nsDetector extends nsPSMDetector implements nsICharsetDetector {
 
-    nsICharsetDetectionObserver mObserver = null;
+  nsICharsetDetectionObserver mObserver = null;
 
-    public nsDetector() {
-        super();
+  public nsDetector() {
+    super();
+  }
+
+  public nsDetector(int langFlag) {
+    super(langFlag);
+  }
+
+  @Override
+  public void Init(nsICharsetDetectionObserver aObserver) {
+
+    mObserver = aObserver;
+
+  }
+
+  @Override
+  public boolean DoIt(byte[] aBuf, int aLen, boolean oDontFeedMe) {
+
+    if (aBuf == null || oDontFeedMe) {
+      return false;
     }
 
-    public nsDetector(int langFlag) {
-        super(langFlag);
+    this.HandleData(aBuf, aLen);
+    return mDone;
+  }
+
+  @Override
+  public void Done() {
+    this.DataEnd();
+  }
+
+  @Override
+  public void Report(String charset) {
+    if (mObserver != null) {
+      mObserver.Notify(charset);
     }
+  }
 
-    @Override
-    public void Init(nsICharsetDetectionObserver aObserver) {
+  public boolean isAscii(byte[] aBuf, int aLen) {
 
-        mObserver = aObserver;
-        return;
-
+    for (int i = 0; i < aLen; i++) {
+      if ((0x0080 & aBuf[i]) != 0) {
+        return false;
+      }
     }
-
-    @Override
-    public boolean DoIt(byte[] aBuf, int aLen, boolean oDontFeedMe) {
-
-        if (aBuf == null || oDontFeedMe) {
-            return false;
-        }
-
-        this.HandleData(aBuf, aLen);
-        return mDone;
-    }
-
-    @Override
-    public void Done() {
-        this.DataEnd();
-        return;
-    }
-
-    @Override
-    public void Report(String charset) {
-        if (mObserver != null) {
-            mObserver.Notify(charset);
-        }
-    }
-
-    public boolean isAscii(byte[] aBuf, int aLen) {
-
-        for (int i = 0; i < aLen; i++) {
-            if ((0x0080 & aBuf[i]) != 0) {
-                return false;
-            }
-        }
-        return true;
-    }
+    return true;
+  }
 }

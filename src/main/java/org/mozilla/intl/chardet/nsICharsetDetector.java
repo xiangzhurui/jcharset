@@ -36,10 +36,10 @@ package org.mozilla.intl.chardet;
 
 public interface nsICharsetDetector {
 
-    void Init(nsICharsetDetectionObserver observer);
+  void Init(nsICharsetDetectionObserver observer);
 
-    boolean DoIt(byte[] aBuf, int aLen, boolean oDontFeedMe);
+  boolean DoIt(byte[] aBuf, int aLen, boolean oDontFeedMe);
 
-    void Done();
+  void Done();
 }
 

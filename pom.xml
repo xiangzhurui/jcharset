@@ -6,7 +6,7 @@
 
   <groupId>org.mozilla.intl</groupId>
   <artifactId>jcharset</artifactId>
-  <version>1.0.0</version>
+  <version>2.0.0</version>
   <packaging>jar</packaging>
 
   <description>Java port of Automatic charset deduction module from Mozilla.</description>
